@@ -154,7 +154,7 @@ export const Login: React.FC = () => {
           variant="caption"
           className="block text-center mt-10 text-slate-400 font-medium"
         >
-          © 2024 Broadcast SaaS. Todos os direitos reservados.
+          © 2026 Broadcast SaaS. Todos os direitos reservados.
         </Typography>
       </Container>
     </Box>

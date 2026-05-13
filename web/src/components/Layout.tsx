@@ -24,7 +24,6 @@ import {
   Logout,
   Menu as MenuIcon,
   Code,
-  Translate,
 } from "@mui/icons-material";
 import { auth } from "../lib/firebase";
 

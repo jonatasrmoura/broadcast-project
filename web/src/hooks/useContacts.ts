@@ -1,39 +1,33 @@
-import { useState, useEffect } from "react";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { useState, useEffect, useCallback } from "react";
+import { contactService } from "../services/contactService";
+import { useAuth } from "./useAuth";
 import type { Contact } from "../types";
 
 export const useContacts = (connectionId: string | undefined) => {
+  const { user } = useAuth();
   const [contacts, setContacts] = useState<Contact[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    // Se não houver conexão selecionada, não busca nada
-    if (!connectionId) {
+  const fetchContacts = useCallback(async () => {
+    if (!connectionId || !user?.uid) {
       setContacts([]);
-      setLoading(false);
       return;
     }
 
-    // Requisito SAAS: Filtramos por connectionId para isolar os dados
-    const q = query(
-      collection(db, "contacts"),
-      where("connectionId", "==", connectionId),
-    );
-
-    // Tempo real: onSnapshot atualiza a lista se um contato for add/removido
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Contact[];
-
+    setLoading(true);
+    try {
+      const data = await contactService.getAll(user.uid, connectionId);
       setContacts(data);
+    } catch (error) {
+      console.error("Erro ao buscar contatos:", error);
+    } finally {
       setLoading(false);
-    });
+    }
+  }, [connectionId, user?.uid]);
 
-    return () => unsubscribe();
-  }, [connectionId]);
+  useEffect(() => {
+    fetchContacts();
+  }, [fetchContacts]);
 
-  return { contacts, loading };
+  return { contacts, loading, refresh: fetchContacts };
 };

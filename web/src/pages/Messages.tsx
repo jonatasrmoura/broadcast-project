@@ -124,8 +124,7 @@ export const Messages: React.FC = () => {
       </Box>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* LADO ESQUERDO: FORMULÁRIO */}
-        <Box className="lg:col-span-5 order-2 lg:order-1">
+        <Box className="lg:col-span-5 lg:order-1">
           <Paper
             elevation={0}
             className="p-6 border border-slate-200 rounded-3xl bg-white shadow-sm sticky top-24"

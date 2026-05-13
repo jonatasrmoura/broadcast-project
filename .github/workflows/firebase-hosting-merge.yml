@@ -11,7 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm run build
+
+      # 1. Instalar as dependências dentro da pasta web
+      - name: Install Dependencies
+        run: npm ci
+        working-directory: web
+
+      # 2. Gerar o build dentro da pasta web
+      - name: Build Project
+        run: npm run build
+        working-directory: web
+
+      # 3. Fazer o deploy para o Firebase
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

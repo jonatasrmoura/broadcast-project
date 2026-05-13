@@ -130,13 +130,14 @@ export const Layout: React.FC = () => {
       </List>
 
       <div className="p-4 border-t border-slate-200 bg-white">
-        <Button
-          startIcon={<Translate />}
-          fullWidth
-          className="text-slate-500! justify-start capitalize font-medium"
-        >
-          PT / EN
-        </Button>
+        <Toolbar className="flex items-center px-6 border-b border-slate-200">
+          <Typography
+            variant="h5"
+            className="font-bold text-slate-800 tracking-tight"
+          >
+            Broadcast <span className="text-blue-600">SaaS</span>
+          </Typography>
+        </Toolbar>
       </div>
     </div>
   );

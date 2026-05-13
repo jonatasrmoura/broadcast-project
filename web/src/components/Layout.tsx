@@ -43,7 +43,13 @@ export const Layout: React.FC = () => {
     { text: "Mensagens", icon: <Send />, path: "/messages" },
   ];
 
-  const devItems = [{ text: "Coding for Dev", icon: <Code />, path: "/dev" }];
+  const devItems = [
+    {
+      text: "Coding for Dev",
+      icon: <Code />,
+      path: "https://www.linkedin.com/in/jonatas-rosa-moura-235574193/",
+    },
+  ];
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
   const handleLogout = () => auth.signOut();
@@ -108,7 +114,7 @@ export const Layout: React.FC = () => {
         {devItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
-              onClick={() => isMobile && setMobileOpen(false)}
+              onClick={() => window.open(item.path, "_blank")}
               className="rounded-xl text-slate-600 hover:bg-slate-200"
             >
               <ListItemIcon className="text-slate-500">
